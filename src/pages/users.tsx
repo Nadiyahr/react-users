@@ -33,7 +33,7 @@ const Users: React.FC = () => {
         <tbody>
           {users ? (
             users.map((user) => (
-              <tr key={user.id}>
+              <tr key={user.id} onClick={() => console.log(user.id)}>
                 <td>{user.name}</td>
                 <td>{user.username}</td>
                 <td>{user.address.city}</td>

@@ -7,6 +7,9 @@ export const tableApi = createApi({
     getUsers: builder.query({
       query: (route: string) => route,
     }),
+    getUserById: builder.query({
+      query: (id: string) => `users/${id}`,
+    }),
     getPostsOfUser: builder.query({
       query: (id: number) => `posts?${id}`,
     }),

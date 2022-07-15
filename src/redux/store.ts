@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import { idReducer } from './features/userId/IdsSlice';
 import { usersReducer } from './features/users/usersSlice';
 import { tableApi } from './services/tableApi';
 
@@ -7,6 +8,7 @@ export const store = configureStore({
   reducer: {
     // posts: postsReducer,
     // comments: commentsReducer,
+    id: idReducer,
     users: usersReducer,
     [tableApi.reducerPath]: tableApi.reducer,
   },
