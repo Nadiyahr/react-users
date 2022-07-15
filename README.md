@@ -1,9 +1,26 @@
-# React TypeScript Starter Pack
+# User, Posts & Comments
 
-To use this template click `Use this template`
+[Demo](https://nadiyahr.github.io/react-users/)
 
-### Available Scripts
+[Task](https://drive.google.com/file/d/1_aGyS9XVAms4lywZO3yUkBT8REjkV6b6/view?usp=sharing)
 
-`Deploy` - available to deploy your application to gh-pages
+## Techstack
 
-`SCSS Preprocessor` - available to write your styles with modern style language
+* React.js v18
+* Redux v4
+* Redux Toolkit
+* React Router v6
+* Typescript
+* SCSS preprocesor
+* Bootstrap
+
+### Dependencies
+
+* Node v14.18.0 and higher
+* NPM v6.14.15 and higher
+
+### Installing
+
+- Fork and clone this repository
+- Run `npm install` in your terminal
+- Run `npm start`
