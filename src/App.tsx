@@ -1,27 +1,31 @@
-import React from 'react';
-import './App.scss';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import Posts from './pages/posts';
+import Users from './pages/users'
+import Post from './pages/post'
+import { useSelector } from 'react-redux'
 
-interface Props {
-  onClick: () => void;
+const PrivateRoutes = () => {
+  const isAuth = false
+  return <>{isAuth ? <Outlet /> : <Navigate to='/dashboard' />}</>
 }
 
-export const Provider: React.FC<Props> = React.memo(
-  ({ onClick, children }) => (
-    <button
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  ),
-);
+const RestrictedRoutes = () => {
+  const isAuth = false
+  return <>{!isAuth ? <Outlet /> : <Navigate to='/dashboard' />}</>
+}
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>
-        <TodoList />
-      </Provider>
-    </div>
-  );
-};
+    <Routes>
+      <Route path='/' element={<Users />} />
+      <Route element={<PrivateRoutes />} >
+        <Route path='/dashboard' element={<Posts />} />
+      </Route>
+      <Route element={<RestrictedRoutes />} >
+        <Route path='/login' element={<Post />} />
+      </Route>
+    </Routes>
+  )
+}
+
+export default App

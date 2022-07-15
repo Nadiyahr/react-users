@@ -1,0 +1,6 @@
+{
+  "quotes": ["error", "backtick", "single", "avoid-escape"],
+  "semi": false,
+  "useTabs": true,
+  "printWidth": 80
+}

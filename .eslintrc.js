@@ -2,12 +2,16 @@ module.exports = {
   extends: [
     '@mate-academy/eslint-config-react-typescript',
     'plugin:react/recommended',
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   rules: {
     // React
     'react/prop-types': 0,
     'react/self-closing-comp': 0,
     'react/display-name': 0,
+    "prettier/prettier": "error",
+    "prettier": [true, "configs/.prettierrc"],
 
     // JavaScript
     semi: 0,
