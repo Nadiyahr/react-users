@@ -1,10 +1,21 @@
-import { authSlice } from './slices/autSlice';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { usersReducer } from './features/users/usersSlice';
+import { tableApi } from './services/tableApi';
 
 export const store = configureStore({
   reducer: {
+    // posts: postsReducer,
+    // comments: commentsReducer,
+    users: usersReducer,
+    [tableApi.reducerPath]: tableApi.reducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(tableApi.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

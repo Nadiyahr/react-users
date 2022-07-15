@@ -1,5 +1,5 @@
 {
-  "quotes": ["error", "backtick", "single", "avoid-escape"],
+  "singleQuote": true,
   "semi": false,
   "useTabs": true,
   "printWidth": 80
