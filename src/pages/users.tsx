@@ -6,47 +6,62 @@ import { useGetUsersQuery } from '../redux/services/tableApi';
 import { useEffect } from 'react';
 import { loadUsers } from '../redux/features/users/usersSlice';
 import Table from 'react-bootstrap/Table';
-import { Link } from 'react-router-dom';
-import User from './user';
+import Spinner from 'react-bootstrap/Spinner';
+import { useNavigate } from 'react-router-dom';
+import { loadUserById } from '../redux/features/userId/IdsSlice';
 
 const Users: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const users = useSelector((state: RootState) => state.users.data);
+  const { userId } = useSelector((state: RootState) => state.ids);
   const { data } = useGetUsersQuery('users');
+
+  const onClickUser = (id: number) => {
+    dispatch(loadUserById(id));
+    navigate('/user');
+  };
 
   useEffect(() => {
     dispatch(loadUsers(data));
     console.log(users);
-  });
+  }, [data, userId]);
   return (
     <Layout>
       <h1>Users</h1>
-      <Table bordered hover variant='dark'>
+      <Table bordered hover variant="dark">
         <thead>
           <tr>
             <th>Full Name</th>
             <th>Username</th>
             <th>City</th>
-            <th>More Info</th>
           </tr>
         </thead>
         <tbody>
           {users ? (
             users.map((user) => (
-              <tr key={user.id} onClick={() => console.log(user.id)}>
+              <tr key={user.id} onClick={() => onClickUser(user.id)}>
                 <td>{user.name}</td>
                 <td>{user.username}</td>
                 <td>{user.address.city}</td>
-                <td>
-                  <h3>Profile</h3>
-                  {/* <Link to='/user'>Profile</Link> */}
-                </td>
               </tr>
             ))
           ) : (
             <tr>
               <td>
-                <h3>Loading users from derver</h3>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </td>
+              <td>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </td>
+              <td>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
               </td>
             </tr>
           )}

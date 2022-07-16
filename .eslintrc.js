@@ -15,7 +15,6 @@ module.exports = {
       'error',
       {
         singleQuote: true,
-        jsxSingleQuote: true,
         useTabs: false,
         printWidth: 80,
         semi: true,

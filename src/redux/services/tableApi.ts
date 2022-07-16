@@ -23,4 +23,5 @@ export const {
   useGetUsersQuery,
   useGetPostsOfUserQuery,
   useGetCommentOfPostQuery,
+  useGetUserByIdQuery,
 } = tableApi;
