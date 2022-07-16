@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface UsersSlice {
-  data: User[];
+  users: User[];
 }
 
 const initialState: UsersSlice = {
-  data: [],
+  users: [],
 };
 
 export const usersSlice = createSlice({
@@ -13,7 +13,7 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     loadUsers: (state, action: PayloadAction<User[]>) => {
-      state.data = action.payload;
+      state.users = action.payload;
     },
   },
 });

@@ -1,19 +1,17 @@
-import { Alert, ListGroup, Spinner, Stack } from 'react-bootstrap';
+import { Alert, Spinner, Stack } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Nav from 'react-bootstrap/Nav';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Layout from '../components/layout';
 import { useGetUserByIdQuery } from '../redux/services/tableApi';
 import { RootState } from '../redux/store';
 
 const User: React.FC = () => {
-  // const dispatch = useDispatch();
-  const { userId } = useSelector((state: RootState) => state.ids);
-  const { data } = useGetUserByIdQuery(userId.toString());
+  let { userId } = useParams();
+  // const { userId } = useSelector((state: RootState) => state.ids);
+  const { data } = useGetUserByIdQuery(userId);
 
-  console.log(data);
   return (
     <Layout>
       {data ? (
@@ -49,23 +47,18 @@ const User: React.FC = () => {
                   </Card.Body>
                 </Card>
               </Stack>
-
-              <br />
             </Card.Text>
             <Button variant="secondary">All posts of {data.username}</Button>
           </Card.Body>
         </Card>
       ) : (
-        <div className="border d-flex mt-5 py-5 align-items-center justify-content-center">
+        <div className="d-flex mt-5 py-5 align-items-center justify-content-center">
           <Alert variant="light">
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
-            <Spinner animation="grow" variant="secondary" />
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Spinner key={i} animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            ))}
           </Alert>
         </div>
       )}

@@ -1,3 +1,4 @@
+import { postsReducer } from './features/posts/postsSlice';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { idsReducer } from './features/userId/IdsSlice';
@@ -6,8 +7,8 @@ import { tableApi } from './services/tableApi';
 
 export const store = configureStore({
   reducer: {
-    // posts: postsReducer,
     // comments: commentsReducer,
+    posts: postsReducer,
     ids: idsReducer,
     users: usersReducer,
     [tableApi.reducerPath]: tableApi.reducer,

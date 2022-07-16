@@ -2,32 +2,32 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IdSlice {
   userId: number;
-  postId: boolean;
-  commentId: boolean;
+  postId: number;
+  commentId: number;
 }
 
 const initialState: IdSlice = {
   userId: 0,
-  postId: false,
-  commentId: false,
+  postId: 0,
+  commentId: 0,
 };
 
 export const idsSlice = createSlice({
   name: 'ids',
   initialState,
   reducers: {
-    loadUserById: (state, action: PayloadAction<number>) => {
+    setUserId: (state, action: PayloadAction<number>) => {
       state.userId = action.payload;
     },
-    loadPostById: (state, action: PayloadAction<boolean>) => {
+    setPostId: (state, action: PayloadAction<number>) => {
       state.postId = action.payload;
     },
-    loadCommentById: (state, action: PayloadAction<boolean>) => {
+    setCommentId: (state, action: PayloadAction<number>) => {
       state.commentId = action.payload;
     },
   },
 });
 
-export const { loadUserById, loadPostById, loadCommentById } = idsSlice.actions;
+export const { setUserId, setPostId, setCommentId } = idsSlice.actions;
 
 export const idsReducer = idsSlice.reducer;
