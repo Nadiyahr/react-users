@@ -10,11 +10,14 @@ export const tableApi = createApi({
     getUserById: builder.query({
       query: (id: string = '0') => `users/${id}`,
     }),
+    getPostById: builder.query({
+      query: (id: string = '0') => `posts/${id}`,
+    }),
     getPostsOfUser: builder.query({
-      query: (id: string = '0') => `posts?userId=${id}`,
+      query: (id: string) => `posts?userId=${id}`,
     }),
     getCommentOfPost: builder.query({
-      query: (id: string) => `comments?${id}`,
+      query: (id: string) => `comments?postId=${id}`,
     }),
   }),
 });
@@ -24,4 +27,5 @@ export const {
   useGetPostsOfUserQuery,
   useGetCommentOfPostQuery,
   useGetUserByIdQuery,
+  useGetPostByIdQuery,
 } = tableApi;

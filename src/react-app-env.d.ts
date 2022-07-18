@@ -34,3 +34,8 @@ interface Comment {
   email: string;
   body: string;
 }
+
+interface Button {
+  children: ReactNode;
+  eventKey: AccordionEventKey;
+}

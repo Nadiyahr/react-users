@@ -1,15 +1,29 @@
 import { Alert, Button, Card, Col, Row, Spinner, Stack } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetPostsOfUserQuery } from '../redux/services/tableApi';
+import {
+  useGetCommentOfPostQuery,
+  useGetDataQuery,
+  useGetPostsOfUserQuery,
+} from '../redux/services/tableApi';
 import Layout from '../components/layout';
-import { RootState } from '../redux/store';
-import { useEffect } from 'react';
+import Comments from './commentsAccordion';
+import { setPostId } from '../redux/features/userId/IdsSlice';
+import { useEffect, useState } from 'react';
 import { loadPosts } from '../redux/features/posts/postsSlice';
 
 const Posts = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   let { userId } = useParams();
-  const { data } = useGetPostsOfUserQuery(userId);
+  const { data } = userId
+    ? useGetPostsOfUserQuery(userId)
+    : useGetDataQuery('posts');
+
+  const loadComments = (postId: number) => {
+    dispatch(setPostId(postId));
+    navigate(`/comments/${postId}`, { replace: true });
+  };
 
   return (
     <Layout>
@@ -33,11 +47,14 @@ const Posts = () => {
                   {post.body}
                   <Card.Footer>
                     <Stack gap={3}>
-                      <Button variant="secondary" className="align-bottom">
+                      <Button
+                        variant="secondary"
+                        className="align-bottom"
+                        onClick={() => loadComments(post.id)}
+                      >
                         Commens
                       </Button>
-                      {/* <Accordion defaultActiveKey={['0']}>
-                       </Accordion> */}
+                      {/* <Comments eventKey={`${post.id}`} /> */}
                     </Stack>
                   </Card.Footer>
                 </Card.Body>

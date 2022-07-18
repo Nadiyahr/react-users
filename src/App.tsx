@@ -1,9 +1,8 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Posts from './pages/posts';
 import Users from './pages/users';
-import Post from './pages/post';
 import User from './pages/user';
+import Comments from './pages/comments';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +11,7 @@ const App: React.FC = () => {
       <Route path="/posts/*" element={<Posts />}>
         <Route path=":userId" element={<Posts />} />
       </Route>
+      <Route path="/comments/:postId" element={<Comments />} />
       <Route path="/user" element={<User />} />
     </Routes>
   );
