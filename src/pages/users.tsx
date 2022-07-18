@@ -3,7 +3,6 @@ import Layout from '../components/layout';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useGetDataQuery } from '../redux/services/tableApi';
-import { useEffect } from 'react';
 import { loadUsers } from '../redux/features/users/usersSlice';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
@@ -12,13 +11,18 @@ import { setUserId } from '../redux/features/userId/IdsSlice';
 
 const Users: React.FC = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state: RootState) => state.users);
-  const { data } = useGetDataQuery('users');
-  console.log(data);
+  const navigate = useNavigate();
+  const users: User[] =
+    useSelector((state: RootState) => state.users.users).length === 0
+      ? useGetDataQuery('users').data
+      : useSelector((state: RootState) => state.users.users);
 
-  useEffect(() => {
-    dispatch(loadUsers(data));
-  }, [data]);
+  const loadPosts = (userId: number) => {
+    dispatch(loadUsers(users));
+    dispatch(setUserId(userId));
+    navigate(`/posts/${userId}`, { replace: true });
+  };
+
   return (
     <Layout>
       <h1>Users</h1>
@@ -33,31 +37,10 @@ const Users: React.FC = () => {
         <tbody>
           {users ? (
             users.map((user) => (
-              <tr key={user.id}>
-                <td>
-                  <Link
-                    to={`/posts/${user.id}`}
-                    style={{ color: 'white', textDecoration: 'none' }}
-                  >
-                    {user.name}
-                  </Link>
-                </td>
-                <td>
-                  <Link
-                    to={`/posts/${user.id}`}
-                    style={{ color: 'white', textDecoration: 'none' }}
-                  >
-                    {user.username}
-                  </Link>
-                </td>
-                <td>
-                  <Link
-                    to={`/posts/${user.id}`}
-                    style={{ color: 'white', textDecoration: 'none' }}
-                  >
-                    {user.address.city}
-                  </Link>
-                </td>
+              <tr key={user.id} onClick={() => loadPosts(user.id)}>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>{user.address.city}</td>
               </tr>
             ))
           ) : (
