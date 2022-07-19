@@ -3,6 +3,7 @@ import Posts from './pages/posts';
 import Users from './pages/users';
 import User from './pages/user';
 import Comments from './pages/comments';
+import EditForm from './pages/editForm';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const App: React.FC = () => {
         <Route path=":userId" element={<Posts />} />
       </Route>
       <Route path="/comments/:postId" element={<Comments />} />
+      <Route path="/edit/:podtId" element={<EditForm />} />
       <Route path="/user" element={<User />} />
     </Routes>
   );

@@ -19,6 +19,13 @@ export const tableApi = createApi({
     getCommentOfPost: builder.query({
       query: (id: string) => `comments?postId=${id}`,
     }),
+    updatePost: builder.mutation({
+      query: ({ id, put }) => ({
+        url: `posts/${id}`,
+        method: 'PUT',
+        body: put,
+      }),
+    }),
   }),
 });
 
@@ -28,4 +35,5 @@ export const {
   useGetCommentOfPostQuery,
   useGetUserByIdQuery,
   useGetPostByIdQuery,
+  useUpdatePostMutation,
 } = tableApi;

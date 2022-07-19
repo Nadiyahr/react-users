@@ -4,10 +4,12 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { idsReducer } from './features/userId/IdsSlice';
 import { usersReducer } from './features/users/usersSlice';
 import { tableApi } from './services/tableApi';
+import { loadingReducer } from './features/loading/loadingSlice';
 
 export const store = configureStore({
   reducer: {
     // comments: commentsReducer,
+    loading: loadingReducer,
     posts: postsReducer,
     ids: idsReducer,
     users: usersReducer,

@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import {
   useGetCommentOfPostQuery,
@@ -7,8 +7,12 @@ import {
 } from '../redux/services/tableApi';
 import Layout from '../components/layout';
 import { Button, Card, Spinner, Stack } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { loadPostById } from '../redux/features/posts/postsSlice';
 
 const Comments = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { postId, userId } = useSelector((state: RootState) => state.ids);
   const user = useSelector((state: RootState) => state.users.users).find(
     (user) => user.id === userId
@@ -16,10 +20,10 @@ const Comments = () => {
   const post = useGetPostByIdQuery(postId.toString()).data;
   const comments = useGetCommentOfPostQuery(postId.toString()).data;
 
-  console.log('postId', postId);
-  console.log('post', post);
-  console.log('user', user);
-  console.log('comments', comments);
+  const editPost = () => {
+    dispatch(loadPostById(post));
+    navigate(`/edit/${postId}`, { replace: true });
+  };
 
   return (
     <Layout>
@@ -39,7 +43,11 @@ const Comments = () => {
             <Card.Body>{post.body}</Card.Body>
             <Card.Footer>
               <Stack direction="horizontal" gap={5}>
-                <Button variant="secondary" className="align-bottom w-25">
+                <Button
+                  variant="secondary"
+                  className="align-bottom w-25"
+                  onClick={editPost}
+                >
                   Edit
                 </Button>
                 <Button variant="secondary" className="align-bottom w-25">
